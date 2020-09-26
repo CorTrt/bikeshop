@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Darker+Grotesque&display=swap" rel="stylesheet">
+    <title><%= title %></title>
+    <script src="https://kit.fontawesome.com/a41e9403cf.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+
+<!-- header -->
+<nav class="navbar navbar-light bg-dark">
+      <a class="navbar" href="/">
+      <img src="/images/bike-logo.svg" width="50" height="50" class="logo" alt="">
+          The Bike Shop Experience
+      </a>
+</nav>
+
+<h1 class="m-4" >Basket</h1>
+
+<% 
+if(dataCardBikes.length > 0){
+%> 
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Model</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Prix</th>
+            <th scope="col">Total</th>
+            <th scope="col">Suppr</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% 
+        var totalCmd = 0;
+
+        for(i=0;i<dataCardBikes.length;i++){ 
+        var subTotal = dataCardBikes[i].price*dataCardBikes[i].qty
+        totalCmd = totalCmd + subTotal
+        %>
+                <tr>
+                    <th width='70em' scope="row">1</th>
+                    <td width='150em'>
+                        <img width="250px" src='<%= dataCardBikes[i].imgUrl %>' alt='<%= dataCardBikes[i].model %>' >
+                    </td>
+                    <td><%= dataCardBikes[i].model %></td>
+                    <td width='350em'> 
+                        <div class="input-group">
+                            <form action='/shop/updateQty' method="post">
+                                    <div class="form-row">
+                                            <div class="col">
+                                                    <input name="qty" type="number" class="form-control" value='<%= dataCardBikes[i].qty %>' placeholder='<%= dataCardBikes[i].qty %>' aria-label="Recipient's username" aria-describedby="button-addon2">
+                                                    <input name="model" type="hidden" value='<%=dataCardBikes[i].model%>' >
+                                            </div>
+                                            <div class="col">
+                                                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                                                            <i class="fas fa-sync"></i>
+                                                    </button>
+                                            </div>
+                                    </div>
+                            </form>
+                        </div>
+                    </td>
+                    <td><%= dataCardBikes[i].price %></td>
+                    <td><%= subTotal %></td>
+                    <td width='70em'>
+                            <a href="/shop/deleteBike?basketId=<%=i%>">
+                                    <div class="d-flex justify-content-center"><i id="trash-icon" class="fas fa-trash"></i></div>
+                            </a>
+                    </td>
+                </tr>
+        <% } %>
+    </tbody>
+</table>
+
+<div class="offset-9 col-3">
+        <h5>Total : <%= totalCmd %></h4>
+</div>
+
+<div class="offset-10 col-2">
+        <a>
+            <button id="checkout-button" data-ID="<%= id %>" type="button" class="btn btn-outline-secondary ">Checkout</button>
+        </a> 
+</div>
+
+<% } else {%>
+
+    <h4 id="no-article"><i>Veuillez ajouter un article à votre panier</i></h4>
+
+<% } %>
+
+<script>
+    
+    
+
+</script>
+
+<script src="/javascripts/script.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jiz" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

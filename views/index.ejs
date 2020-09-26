@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Darker+Grotesque&display=swap" rel="stylesheet">
+    <title><%= title %></title>
+    <script src="https://kit.fontawesome.com/a41e9403cf.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light bg-dark">
+            <a class="navbar" href="/">
+               <img src="/images/bike-logo.svg" width="50" height="50" class="logo" alt="BikeShop Logo">
+                The Bike Shop Experience
+            </a>
+
+            <a class="navbar" href="/shop/">
+                <i id='basket-icon' class="fas fa-shopping-cart"></i>
+                Panier
+            </a>
+    </nav>
+    
+    <div id="picture-header"> 
+    </div>
+
+    <div class="container-fluid">
+
+            <div class="row">
+
+                <% for(i=0;i<dataBikes.length;i++){ %>
+                        <div class="col-xs-12 col-md-6 col-lg-4">
+                                <div class="card m-1">
+                                        <img src=<%= dataBikes[i].imgUrl %> class="card-img-top" alt=<%= dataBikes[i].model %> >
+                                        <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                                                <h5 class="card-title"> <%= dataBikes[i].model %> </h5>
+                                                <p class="card-text"> <%= dataBikes[i].price %> €</p>
+                                                <a href="/shop/addBike?imgUrl=<%= dataBikes[i].imgUrl %>&model=<%= dataBikes[i].model %>&price=<%= dataBikes[i].price %>&qty=1">
+                                                        <button type="button" class="btn btn-outline-secondary">
+                                                                <i class="fas fa-cart-plus"></i>
+                                                        </button>
+                                                </a>
+                                        </div>
+                                </div>
+                        </div>
+                <% } %>
+        
+            </div>
+
+    </div>   
+  
+ 
+<!-- Scripts ------------------------------------------- -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>
